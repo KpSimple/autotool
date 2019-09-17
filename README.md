@@ -45,3 +45,56 @@ GNU Autotools 一般指的是3个 GNU 工具包：Autoconf，Automake 和 Libtoo
 7．运行./confiugre脚本  
 
 ### 1、autoscan
+这个命令主要用于扫描工作目录，并且生成configure.scan文件。并且configure.scan需要重命令成configure.ac，然后编辑这个配置  
+下面是configure.ac标签说明  
+
+![](https://github.com/KpSimple/autotool/blob/master/picture/autoscan.png)
+
+一般我们需添加  
+AM_INIT_AUTOMAKE([hello],[1.0]) 指定可执行名称+版本号  
+AC_CONFIG_FILES([Makefile, src/Makefile]) 用于生成相应的Makefile文件  
+
+### 2、aclocal
+扫描 configure.ac 文件生成 aclocal.m4文件, 该文件主要处理本地的宏定义，它根据已经安装的宏、用户定义宏和 acinclude.m4 文件中的宏将 configure.ac 文件需要的宏集中定义到文件 aclocal.m4 中(aclocal是一个perl 脚本程序).  
+
+### 3、autoconf
+执行autoconf命令。这个命令将 configure.ac 文件中的宏展开，生成 configure 脚本。这个过程要用到aclocal.m4中定义的宏  
+
+### 4、Autoheader
+执行autoheader命令。该命令生成 config.h.in 文件。该命令通常会从 "acconfig.h” 文件中复制用户附加的符号定义。
+
+### 5、Makefile.am
+创建Makefile.am文件。Automake工具会根据 configure.in 中的参量把 Makefile.am 转换成 Makefile.in 文件。最终通过Makefile.in生成Makefile文件，所以Makefile.am这个文件非常重要，定义了一些生成Makefile的规则。  
+Makefile.am是一种比Makefile更高层次的规则。只需指定要生成什么目标，它由什么源文件生成，要安装到什么目录等构成。  
+表一列出了可执行文件、静态库、头文件和数据文件，四种书写Makefile.am文件个一般格式。  
+
+![](https://github.com/KpSimple/autotool/blob/master/picture/Makefile.am.png)
+
+对于可执行文件和静态库类型，如果只想编译，不想安装到系统中，可以用noinst_PROGRAMS代替bin_PROGRAMS，noinst_LIBRARIES代替lib_LIBRARIES。  
+Makefile.am还提供了一些全局变量供所有的目标体使用：
+
+![](https://github.com/KpSimple/autotool/blob/master/picture/Makefile.am2.png)
+
+在Makefile.am中尽量使用相对路径，系统预定义了两个基本路径： 
+
+![](https://github.com/KpSimple/autotool/blob/master/picture/Makefile.am3.png)
+
+### 6、automake: automake将Makefile.am中定义的结构建立Makefile.in
+Automake 所需要的文件： 
+
+![](https://github.com/KpSimple/autotool/blob/master/picture/automake.png)
+
+用automake –a可以自动生成以下文件  
+
+![](https://github.com/KpSimple/autotool/blob/master/picture/automake2.png)
+
+要手动生成以下文件  
+touch NEWS README AUTHORS ChangeLog  
+
+### 7、./configure 
+生成Makefile和config.h
+
+### 8、Make
+生成目标文件
+
+
