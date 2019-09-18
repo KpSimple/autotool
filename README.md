@@ -60,7 +60,7 @@ AC_CONFIG_FILES([Makefile, src/Makefile]) 用于生成相应的Makefile文件
 ### 3、autoconf
 执行autoconf命令。这个命令将 configure.ac 文件中的宏展开，生成 configure 脚本。这个过程要用到aclocal.m4中定义的宏  
 
-### 4、Autoheader
+### 4、autoheader
 执行autoheader命令。该命令生成 config.h.in 文件。该命令通常会从 "acconfig.h” 文件中复制用户附加的符号定义。
 
 ### 5、Makefile.am
