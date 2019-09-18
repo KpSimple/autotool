@@ -94,7 +94,7 @@ touch NEWS README AUTHORS ChangeLog
 ### 7、./configure 
 生成Makefile和config.h
 
-### 8、Make
+### 8、make
 生成目标文件
 
 
